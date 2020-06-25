@@ -66,12 +66,12 @@
                     Dato requerido.
         </span>
                 <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoImporte.touched || submitted) 
-                       && (FormRegCon.controls.ContratoImporte.errors?.min || FormRegCon.controls.ContratoImporte.errors?.max) ">
-                    Dato numérico, 0 a 999.
+                       && (FormRegCon.controls.ContratoImporte.errors?.min) ">
+                    Dato numérico, al ser importe no puede ser negativo.
                 </span>
                 <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoImporte.touched || submitted) 
                        && FormRegCon.controls.ContratoImporte.errors?.pattern ">
-                    Dato numerico
+                    Dato numerico. Es un importe.
                 </span>
 			</div> 
 		</div>
