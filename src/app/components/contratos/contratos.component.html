@@ -1,4 +1,4 @@
-<h3>{{Titulo}} <small>{{TituloAccionABM[AccionABM]}}</small></h3>
+<h3>{{Titulo}} <small>{{TituloAccionAL[AccionAL]}}</small></h3>
 <div>
   <div class= "container">
   <button type="button" class="btn btn-primary" (click)="Alta()" *ngIf="AccionABM == 'L'">
@@ -8,7 +8,7 @@
   </div>
   <br>
   <div class= "container">
-  <table class="table table-bordered table-striped" *ngIf="AccionABM == 'L'">
+  <table class="table table-bordered table-striped" *ngIf="AccionAL == 'L'">
     <thead>
       <tr>
         <th class="text-center">ContratoDescripcion</th>
@@ -18,9 +18,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of Items">
-        <td>{{item.EquipoNombre | uppercase}}</td>
-        <td>{{item.EquipoRanking}}</td>
-        <td>{{item.IdEquipo}}</td>
+        <td>{{item.ContratoDescripcion | uppercase}}</td>
+        <td>{{item.ContratoImporte}}</td>
+        <td>{{item.IdContrato}}</td>
       </tr>
     </tbody>
   </table>

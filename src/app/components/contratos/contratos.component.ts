@@ -19,9 +19,27 @@ export class ContratosComponent implements OnInit {
     L:"(Listado)"
   };
   AccionAL = "L"; //INICIALMENTE INICIA EN EL LISTADO DE CONTRATOS
-  constructor() { }
+  FormRegCon: FormGroup;
+  constructor(public formbuilder: FormBuilder,
+    private contratosService: ContratosService,
+    private modalDialogService: ModalDialogService) { }
 
   ngOnInit() {
+    this.GetContratos();
+    this.FormRegCon = this.formbuilder.group({
+      ContratoDescripcion: [
+        "",
+        [Validators.required, Validators.minLength(4), Validators.maxLength(10)]
+      ],
+      EquipoRanking: [null, [Validators.required, Validators.max(999), Validators.min(0), Validators.pattern("[0-9]{1,3}")]],
+      IdEquipo: [0]
+    });
+  }
+  GetContratos(){
+    this.contratosService.get()
+    .subscribe((res:Contrato[]) => {
+      this.Items = res;
+    });
   }
 
 }
