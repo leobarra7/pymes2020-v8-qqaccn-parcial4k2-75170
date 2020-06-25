@@ -45,14 +45,12 @@ export class ContratosComponent implements OnInit {
     });
   }
 
-   Alta() {
+  Alta() {
     this.AccionAL = "A";
     this.FormRegCon.reset(this.FormRegCon.value);
     this.submitted = false;
-    //this.FormReg.markAsPristine();
     this.FormRegCon.markAsUntouched();
   }
-
    // Obtengo un registro especifico según el Id
   BuscarPorId(Dto, AccionAL) {
     window.scroll(0, 0); // ir al incio del scroll
@@ -62,21 +60,23 @@ export class ContratosComponent implements OnInit {
     });
   }
 
-  Grabar() {
+Grabar(){
     this.submitted = true;
     // verificar que los validadores esten OK
-     if (this.FormRegCon.invalid) {
+    if (this.FormRegCon.invalid) {
       return;
     }
     //hacemos una copia de los datos del formulario
     const itemCopy = { ...this.FormRegCon.value };
-    // agregar post
-    if (itemCopy.IdContrato == 0 || itemCopy.IdContrato == null) {
-      this.contratosService.post(itemCopy).subscribe((res: any) =>{
-        this.Volver();
-        this.modalDialogService.Alert('Registro agregado correctamente');
-      });
-    } 
+
+    // agregar post - se hace con el if para luego poder hacer la modificacion
+    // sin embargo en este caso no lo hacemos pero lo dejamos asi para que sea
+    // un codigo escalable
+    this.contratosService.post(itemCopy).subscribe((res: any) =>{
+      this.Volver();
+      this.modalDialogService.Alert('Registro agregado correctamente');
+      this.GetContratos();
+    });
   }
   // Volver desde Agregar
   Volver() {
