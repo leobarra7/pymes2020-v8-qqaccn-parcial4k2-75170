@@ -51,14 +51,6 @@ export class ContratosComponent implements OnInit {
     this.submitted = false;
     this.FormRegCon.markAsUntouched();
   }
-   // Obtengo un registro especifico según el Id
-  BuscarPorId(Dto, AccionAL) {
-    window.scroll(0, 0); // ir al incio del scroll
-    this.contratosService.getById(Dto.IdContrato).subscribe((res: any) => {
-      this.FormRegCon.patchValue(res);
-      this.AccionAL = AccionAL;
-    });
-  }
 
 Grabar(){
     this.submitted = true;
