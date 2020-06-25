@@ -34,7 +34,7 @@ export class ContratosComponent implements OnInit {
         "",
         [Validators.required, Validators.minLength(4), Validators.maxLength(50)]
       ],
-      ContratoImporte: [null, [Validators.required, Validators.min(0), Validators.pattern("[0-9]{1,6}")]],
+      ContratoImporte: [null, [Validators.required, Validators.min(0), Validators.pattern("[0-9]{1,10}")]],
       IdContrato: [0]
     });
   }
