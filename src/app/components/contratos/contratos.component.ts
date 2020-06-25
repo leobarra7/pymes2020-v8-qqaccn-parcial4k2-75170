@@ -20,6 +20,9 @@ export class ContratosComponent implements OnInit {
   };
   AccionAL = "L"; //INICIALMENTE INICIA EN EL LISTADO DE CONTRATOS
   FormRegCon: FormGroup;
+  Mensajes = {
+    RD: " Revisar los datos ingresados..."
+  };
   constructor(public formbuilder: FormBuilder,
     private contratosService: ContratosService,
     private modalDialogService: ModalDialogService) { }
@@ -29,10 +32,10 @@ export class ContratosComponent implements OnInit {
     this.FormRegCon = this.formbuilder.group({
       ContratoDescripcion: [
         "",
-        [Validators.required, Validators.minLength(4), Validators.maxLength(10)]
+        [Validators.required, Validators.minLength(4), Validators.maxLength(50)]
       ],
-      EquipoRanking: [null, [Validators.required, Validators.max(999), Validators.min(0), Validators.pattern("[0-9]{1,3}")]],
-      IdEquipo: [0]
+      ContratoImporte: [null, [Validators.required, Validators.pattern("[0-9]{1,7}")]],
+      IdContrato: [0]
     });
   }
   GetContratos(){
@@ -40,6 +43,44 @@ export class ContratosComponent implements OnInit {
     .subscribe((res:Contrato[]) => {
       this.Items = res;
     });
+  }
+
+   Alta() {
+    this.AccionAL = "A";
+    this.FormRegCon.reset(this.FormRegCon.value);
+    this.submitted = false;
+    //this.FormReg.markAsPristine();
+    this.FormRegCon.markAsUntouched();
+  }
+
+   // Obtengo un registro especifico según el Id
+  BuscarPorId(Dto, AccionAL) {
+    window.scroll(0, 0); // ir al incio del scroll
+    this.contratosService.getById(Dto.IdContrato).subscribe((res: any) => {
+      this.FormRegCon.patchValue(res);
+      this.AccionAL = AccionAL;
+    });
+  }
+
+  Grabar() {
+    this.submitted = true;
+    // verificar que los validadores esten OK
+     if (this.FormRegCon.invalid) {
+      return;
+    }
+    //hacemos una copia de los datos del formulario
+    const itemCopy = { ...this.FormRegCon.value };
+    // agregar post
+    if (itemCopy.IdContrato == 0 || itemCopy.IdContrato == null) {
+      this.contratosService.post(itemCopy).subscribe((res: any) =>{
+        this.Volver();
+        this.modalDialogService.Alert('Registro agregado correctamente');
+      });
+    } 
+  }
+  // Volver desde Agregar
+  Volver() {
+    this.AccionAL = "L";
   }
 
 }

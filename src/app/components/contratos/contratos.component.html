@@ -1,7 +1,7 @@
 <h3>{{Titulo}} <small>{{TituloAccionAL[AccionAL]}}</small></h3>
 <div>
   <div class= "container">
-  <button type="button" class="btn btn-primary" (click)="Alta()" *ngIf="AccionABM == 'L'">
+  <button type="button" class="btn btn-primary" (click)="Alta()" *ngIf="AccionAL == 'L'">
             <span class="fas fa-plus"> </span> 
             Agregar
   </button>
@@ -25,3 +25,65 @@
     </tbody>
   </table>
 </div>
+
+<!-- Registro en Alta -->
+<form name="FormRegCon" [formGroup]='FormRegCon' *ngIf="AccionAL != 'L'" class="bg-light">
+
+	<fieldset>
+		
+    <!--campo ContratoDescripcion-->
+		<div class="form-group row">
+			<label class="col-form-label col-sm-2 col-sm-offset-2" for="ContratoDescripcion">
+              Contrato Descripcion <span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-6">
+				<input class="form-control"
+          name="ContratoDescripcion" formControlName="ContratoDescripcion"
+          [ngClass]="{'is-invalid': (FormRegCon.controls.ContratoDescripcion.touched || submitted)
+           && FormRegCon.controls.ContratoDescripcion.errors}" />
+
+        <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoDescripcion.touched || submitted) 
+                        && FormRegCon.controls.ContratoDescripcion.errors?.required">
+                    Dato requerido.
+        </span>
+                <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoDescripcion.touched || submitted) 
+                       && (FormRegCon.controls.ContratoDescripcion.errors?.minlength || FormRegCon.controls.ContratoDescripcion.errors?.maxlength) ">
+                    Dato texto, 4 a 50 caracteres.
+                </span>
+			</div>
+		</div>
+
+    <!--campo ContratoImporte-->
+		<div class="form-group row">
+			<label class="col-form-label col-sm-2 col-sm-offset-2" for="ContratoImporte">Contrato Importe <span
+                    class="text-danger">*</span></label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" formControlName="ContratoImporte"
+        [ngClass]="{'is-invalid': (FormRegCon.controls.ContratoImporte.touched || submitted)
+           && FormRegCon.controls.ContratoImporte.errors}"/>
+           <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoImporte.touched || submitted) 
+                        && FormRegCon.controls.ContratoImporte.errors?.required">
+                    Dato requerido.
+        </span>
+                <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoImporte.touched || submitted) 
+                       && (FormRegCon.controls.ContratoImporte.errors?.min || FormRegCon.controls.ContratoImporte.errors?.max) ">
+                    Dato numérico, 0 a 999.
+                </span>
+                <span class="text-danger" *ngIf="(FormRegCon.controls.ContratoImporte.touched || submitted) 
+                       && FormRegCon.controls.ContratoImporte.errors?.pattern ">
+                    Dato numerico
+                </span>
+			</div> 
+		</div>
+    </fieldset>
+        <!-- Botones Grabar, Cancelar/Volver' -->
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="Grabar()">
+            <span class="fas fa-check"></span> Grabar
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-warning" (click)="Volver()">
+            <span class="fas fa-undo"></span> Volver/Cancelar
+        </button>
+    </div>
+</form> 
